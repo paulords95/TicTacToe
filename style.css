@@ -1,0 +1,32 @@
+#gameboard {
+    margin: auto;
+    height: 400px;
+    width: 400px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.boardCol {
+    color: blue;
+    border: 1px solid #000;
+    background-color: dodgerblue;
+    width: 200px;
+    height: 200px;
+    justify-content: center;
+}
+
+.boardSlot {
+    display: flex;
+    color: blue;
+    border: 1px solid #000;
+    background-color: dodgerblue;
+    width: 200px;
+    font-family: sans-serif;
+    font-size: 80px;
+    height: 200px;
+    align-items: center;
+    justify-content: center;
+  
+}
