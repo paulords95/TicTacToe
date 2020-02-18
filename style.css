@@ -44,7 +44,7 @@
     height: 75px;
     color: cornsilk;
     background-color: rgb(36, 30, 30);
-    position: relative;
+    position: absolute;
     margin-top: 555px;
     border-radius: 10px;
 }
@@ -64,4 +64,19 @@
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-weight: bolder;
     font-size: 17px;
+}
+
+#restart {
+    display: flex;
+    justify-content: center;
+    width: 110px;
+    float: 50px;
+    height: 45px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: bolder;
+    color: rgb(0, 0, 0);
+    background-color: rgb(247, 229, 229);
+    position: relative;
+    margin-top: 635px;
+    border-radius: 10px;
 }

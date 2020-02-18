@@ -39,9 +39,9 @@ function playGame(){
                 lastPlay = choice;
             } 
             if (status.innerHTML == 'X won!' || 
-                    status.innerHTML == 'O won!' &&
-                    gameboard[m].innerHTML == '') {
-                gameboard[m].innerHTML = 'END';
+                    status.innerHTML == 'O won!') {
+                gameboard[m].innerHTML = '#'
+                gameboard[m].style.backgroundColor = 'red';
             }
 
         
@@ -90,20 +90,27 @@ score.appendChild(status);
 startGame.addEventListener('click', function(){
     playGame();
     startGame.remove();
-    status.innerHTML = 'Playing'
+    status.innerHTML = 'Playing';
 })
+
+
+const restartGame = document.createElement('button');
+restartGame.innerHTML = 'RESTART GAME';
+restartGame.setAttribute('id', 'restart');
+restartGame.addEventListener('click', function(){
+    location.reload();
+})
+
+let flagWon = false;
 
 function checkWinner (posOne, posTwo, posThree, choice){
     if(gameboard[posOne].innerHTML == gameboard[posTwo].innerHTML &&
         gameboard[posOne].innerHTML == gameboard[posThree].innerHTML &&
         gameboard[posThree].innerHTML  == choice){
-            status.innerHTML = choice + ' won!'
+            status.innerHTML = choice + ' won!';
+            container.appendChild(restartGame);
+            flagWon = true;
         } 
-}
-
-
-if (status.innerHTML == 'X won!' || status.innerHTML == 'O won!'){
-   alert('teste')
 }
 
 
