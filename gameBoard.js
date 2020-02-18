@@ -38,12 +38,11 @@ function playGame(){
                 gameboard[m].innerHTML = choice;
                 lastPlay = choice;
             } 
-            if (status.innerHTML == 'X won!' || 
-                    status.innerHTML == 'O won!') {
+            if (status.innerHTML == '"X" won!' || 
+                    status.innerHTML == '"O" won!') {
                 gameboard[m].innerHTML = '#'
                 gameboard[m].style.backgroundColor = 'red';
             }
-
         
             checkWinner (0, 1, 2, 'O');
             checkWinner (3, 4, 5, 'O');
@@ -107,7 +106,10 @@ function checkWinner (posOne, posTwo, posThree, choice){
     if(gameboard[posOne].innerHTML == gameboard[posTwo].innerHTML &&
         gameboard[posOne].innerHTML == gameboard[posThree].innerHTML &&
         gameboard[posThree].innerHTML  == choice){
-            status.innerHTML = choice + ' won!';
+            gameboard[posOne].style.backgroundColor = 'orange';
+            gameboard[posTwo].style.backgroundColor = 'orange';
+            gameboard[posThree].style.backgroundColor = 'orange';
+            status.innerHTML = '"'+ choice +'"' + ' won!';
             container.appendChild(restartGame);
             flagWon = true;
         } 
