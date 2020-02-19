@@ -19,8 +19,7 @@ function createGame (){
 
 createGame();
 
-startGame.setAttribute('id', 'start');
-startGame.innerHTML = 'START GAME';
+
 
 const gameboard = document.querySelectorAll('.boardSlot');
 let lastPlay = '';
@@ -69,7 +68,11 @@ function playGame(){
 
 const status = document.createElement('div');
 status.setAttribute('id', 'status');
+status.innerHTML = 'Choose an opponent!'
+status.style.fontSize = '30px'
+status.style.marginTop = '15px'
 score.appendChild(status);
+
 
 
 const vsCPU = document.createElement('button');
@@ -86,21 +89,19 @@ players.appendChild(vsPlyr)
 vsPlyr.addEventListener('click', function(){
     vsPlyr.style.backgroundColor = 'grey'
     vsPlyr.style.borderColor = 'grey'
-    score.appendChild(startGame)
+    playGame();
+    startGame.remove();
+    status.innerHTML = 'Playing!';
 })
 
 vsCPU.addEventListener('click', function(){
     vsCPU.style.backgroundColor = 'grey'
     vsCPU.style.borderColor = 'grey'
-    score.appendChild(startGame)
-})
-
-
-startGame.addEventListener('click', function(){
     playGame();
     startGame.remove();
     status.innerHTML = 'Playing!';
 })
+
 
 
 const restartGame = document.createElement('button');
