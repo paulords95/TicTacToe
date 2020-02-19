@@ -2,6 +2,7 @@ const gB = document.querySelector('#gameboard');
 const container = document.querySelector('#container');
 const score = document.querySelector('#score');
 const startGame = document.createElement('button');
+let flagWon = 0;
 
 function createGame (){
     for (let i = 0; i < 3; i++){
@@ -29,10 +30,12 @@ function playGame(){
     for (let m = 0; m < gameboard.length; m++){
         gameboard[m].addEventListener('click', function(){
             if (lastPlay == '' || lastPlay == playerOne.choice){
-                choice = playerTwo.choice;    
+                choice = playerTwo.choice;
+                flagWon++;    
             }
             if (lastPlay == playerTwo.choice){
                 choice = playerOne.choice;
+                flagWon++;
             }
             if (gameboard[m].innerHTML == ''){
                 gameboard[m].innerHTML = choice;
@@ -73,7 +76,7 @@ score.appendChild(status);
 startGame.addEventListener('click', function(){
     playGame();
     startGame.remove();
-    status.innerHTML = 'Playing';
+    status.innerHTML = 'Playing!';
 })
 
 
@@ -84,7 +87,7 @@ restartGame.addEventListener('click', function(){
     location.reload();
 })
 
-let flagWon = false;
+
 
 function checkWinner (posOne, posTwo, posThree, choice){
     if(gameboard[posOne].innerHTML == gameboard[posTwo].innerHTML &&
@@ -95,9 +98,10 @@ function checkWinner (posOne, posTwo, posThree, choice){
             gameboard[posThree].style.backgroundColor = 'orange';
             status.innerHTML = '"'+ choice +'"' + ' won!';
             container.appendChild(restartGame);
-            flagWon = true;
-        } 
+        } else if (flagWon == 9 && status.innerHTML != '"'+ choice +'"' + ' won!') {
+            status.innerHTML = 'Draw!';
+            container.appendChild(restartGame);
+        }
 }
-
 
 
