@@ -24,15 +24,15 @@ createGame();
 const gameboard = document.querySelectorAll('.boardSlot');
 let lastPlay = '';
 let choice= '';
-function playGame(){
+function playGame(player1, player2){
     for (let m = 0; m < gameboard.length; m++){
         gameboard[m].addEventListener('click', function(){
-            if (lastPlay == '' || lastPlay == playerOne.choice){
-                choice = playerTwo.choice;
+            if (lastPlay == '' || lastPlay == player1.choice){
+                choice = player2.choice;
                 flagWon++;    
             }
-            if (lastPlay == playerTwo.choice){
-                choice = playerOne.choice;
+            if (lastPlay == player2.choice){
+                choice = player1.choice;
                 flagWon++;
             }
             if (gameboard[m].innerHTML == ''){
@@ -89,7 +89,7 @@ players.appendChild(vsPlyr)
 vsPlyr.addEventListener('click', function(){
     vsPlyr.style.backgroundColor = 'grey'
     vsPlyr.style.borderColor = 'grey'
-    playGame();
+    playGame(playerOne, playerTwo);
     startGame.remove();
     status.innerHTML = 'Playing!';
 })
@@ -97,7 +97,7 @@ vsPlyr.addEventListener('click', function(){
 vsCPU.addEventListener('click', function(){
     vsCPU.style.backgroundColor = 'grey'
     vsCPU.style.borderColor = 'grey'
-    playGame();
+    playGame(playerOne, playerTwo);
     startGame.remove();
     status.innerHTML = 'Playing!';
 })
@@ -117,12 +117,13 @@ function checkWinner (posOne, posTwo, posThree, choice){
     if(gameboard[posOne].innerHTML == gameboard[posTwo].innerHTML &&
         gameboard[posOne].innerHTML == gameboard[posThree].innerHTML &&
         gameboard[posThree].innerHTML  == choice){
+            flagWon = 0
             gameboard[posOne].style.backgroundColor = 'orange';
             gameboard[posTwo].style.backgroundColor = 'orange';
             gameboard[posThree].style.backgroundColor = 'orange';
             status.innerHTML = '"'+ choice +'"' + ' won!';
             container.appendChild(restartGame);
-        } else if (flagWon == 9 && status.innerHTML != '"'+ choice +'"' + ' won!') {
+        } else if (flagWon == 9) {
             status.innerHTML = 'Draw!';
             container.appendChild(restartGame);
         }
