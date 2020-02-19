@@ -3,6 +3,7 @@ const container = document.querySelector('#container');
 const score = document.querySelector('#score');
 const startGame = document.createElement('button');
 let flagWon = 0;
+const players = document.querySelector('#players')
 
 function createGame (){
     for (let i = 0; i < 3; i++){
@@ -18,10 +19,8 @@ function createGame (){
 
 createGame();
 
-
 startGame.setAttribute('id', 'start');
-startGame.innerHTML = 'START GAME'
-score.appendChild(startGame)
+startGame.innerHTML = 'START GAME';
 
 const gameboard = document.querySelectorAll('.boardSlot');
 let lastPlay = '';
@@ -71,6 +70,30 @@ function playGame(){
 const status = document.createElement('div');
 status.setAttribute('id', 'status');
 score.appendChild(status);
+
+
+const vsCPU = document.createElement('button');
+vsCPU.innerHTML = 'Player vs Computer'
+vsCPU.setAttribute('class', 'vsCPUvsPlyr')
+players.appendChild(vsCPU)
+
+const vsPlyr = document.createElement('button')
+vsPlyr.innerHTML = 'Player vs Player'
+vsPlyr.setAttribute('class', 'vsCPUvsPlyr')
+players.appendChild(vsPlyr)
+
+
+vsPlyr.addEventListener('click', function(){
+    vsPlyr.style.backgroundColor = 'grey'
+    vsPlyr.style.borderColor = 'grey'
+    score.appendChild(startGame)
+})
+
+vsCPU.addEventListener('click', function(){
+    vsCPU.style.backgroundColor = 'grey'
+    vsCPU.style.borderColor = 'grey'
+    score.appendChild(startGame)
+})
 
 
 startGame.addEventListener('click', function(){
