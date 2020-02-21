@@ -205,7 +205,7 @@ function checkWinner (posOne, posTwo, posThree, choice){
             status.innerHTML = '"'+ choice +'"' + ' won!'
             isThereAWin = true
             container.appendChild(restartGame)
-        } else if (flagWon == 9) {
+        } else if (flagWon == 9 || flagWonCPU == 5 && isThereAWin == false) {
             status.innerHTML = 'Draw!'
             container.appendChild(restartGame)
         }
