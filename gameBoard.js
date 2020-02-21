@@ -30,12 +30,16 @@ let choice= ''
 
 
 let computerPlay = (oper) => {
-    let cpuChoice = oper;  
-    let randNumber = Math.floor(Math.random(0) * 9)
+    let cpuChoice = oper  
+    let randNumber = Math.floor(Math.random(0) * 8)
     if (gameboard[randNumber].innerHTML == '' && status.innerHTML == 'Playing!'){
         gameboard[randNumber].innerHTML = cpuChoice;
-    } else if (flagWonCPU < 5){
-        computerPlay(oper);
+    } else if (status.innerHTML == '"X" won!') {
+        return
+    }
+    
+    else if (flagWonCPU < 5){
+        computerPlay(oper)
     } 
     return (cpuChoice)
 }
@@ -93,19 +97,19 @@ function playGameVsCPU (player1){
         gameboard[pos].innerHTML = player1.choice
         flagWonCPU++
     }
-    
+
     for (let m = 0; m < gameboard.length; m++){
                  
         gameboard[m].addEventListener('click', function(){
             if (gameboard[m].innerHTML == ''){
                 setPyrMark(m);
-            } else {
-                console.log('ja marcado')
-            }
+                lastPlay = player1.choice
+            } 
       
-            if (flagWonCPU < 5 && status.innerHTML == 'Playing!'){
+            if (flagWonCPU < 5 && status.innerHTML == 'Playing!' && lastPlay == player1.choice){
                 setTimeout(function(){
                     computerPlay('O');
+                    lastPlay == 'O'
                     checkWinner (0, 1, 2, 'O')
                     checkWinner (3, 4, 5, 'O')
                     checkWinner (6, 7, 8, 'O')
