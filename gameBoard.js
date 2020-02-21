@@ -3,6 +3,7 @@ const container = document.querySelector('#container')
 const score = document.querySelector('#score')
 const startGame = document.createElement('button')
 let flagWon = 0
+let flagWonCPU = 0
 const players = document.querySelector('#players')
 
 function createGame (){
@@ -25,15 +26,31 @@ const gameboard = document.querySelectorAll('.boardSlot')
 let lastPlay = ''
 let choice= ''
 
+
+
+
+let computerPlay = (oper) => {
+    let cpuChoice = oper;  
+    let randNumber = Math.floor(Math.random(0) * 9)
+    if (gameboard[randNumber].innerHTML == '' && status.innerHTML == 'Playing!'){
+        gameboard[randNumber].innerHTML = cpuChoice;
+    } else if (flagWonCPU < 5){
+        computerPlay(oper);
+    } 
+    return (cpuChoice)
+}
+
+
 function playGame(player1, player2){
+
     for (let m = 0; m < gameboard.length; m++){
         gameboard[m].addEventListener('click', function(){
-            if (lastPlay == '' || lastPlay == player1.choice){
-                choice = player2.choice
-                flagWon++
-            }
             if (lastPlay == player2.choice){
                 choice = player1.choice
+                flagWon++
+            }
+            if (lastPlay == '' || lastPlay == player1.choice){
+                choice = player2.choice
                 flagWon++
             }
             if (gameboard[m].innerHTML == ''){
@@ -67,6 +84,61 @@ function playGame(player1, player2){
     }
 }
 
+
+
+
+
+function playGameVsCPU (player1){
+    function setPyrMark (pos){
+        gameboard[pos].innerHTML = player1.choice
+        flagWonCPU++
+    }
+    
+    for (let m = 0; m < gameboard.length; m++){
+                 
+        gameboard[m].addEventListener('click', function(){
+            if (gameboard[m].innerHTML == ''){
+                setPyrMark(m);
+            } else {
+                console.log('ja marcado')
+            }
+      
+            if (flagWonCPU < 5 && status.innerHTML == 'Playing!'){
+                setTimeout(function(){
+                    computerPlay('O');
+                    checkWinner (0, 1, 2, 'O')
+                    checkWinner (3, 4, 5, 'O')
+                    checkWinner (6, 7, 8, 'O')
+                    checkWinner (0, 4, 8, 'O')
+                    checkWinner (2, 4, 6, 'O')
+                    checkWinner (0, 3, 6, 'O')
+                    checkWinner (1, 4, 7, 'O')
+                    checkWinner (2, 5, 8, 'O')
+                
+                }, 400);
+            } 
+            console.log(flagWonCPU)
+            if (status.innerHTML == '"X" won!' || 
+                status.innerHTML == '"O" won!' || status.innerHTML == 'Draw!') {
+                gameboard[m].innerHTML = '#'
+                gameboard[m].style.backgroundColor = 'red'
+            }
+        
+            checkWinner (0, 1, 2, 'X')
+            checkWinner (3, 4, 5, 'X')
+            checkWinner (6, 7, 8, 'X')
+            checkWinner (0, 4, 8, 'X')
+            checkWinner (2, 4, 6, 'X')
+            checkWinner (0, 3, 6, 'X')
+            checkWinner (1, 4, 7, 'X')
+            checkWinner (2, 5, 8, 'X')
+        })
+    }
+}
+
+
+
+
 const status = document.createElement('div')
 status.setAttribute('id', 'status');
 status.innerHTML = 'Choose an opponent!'
@@ -98,7 +170,7 @@ vsPlyr.addEventListener('click', function(){
 vsCPU.addEventListener('click', function(){
     vsCPU.style.backgroundColor = 'grey'
     vsCPU.style.borderColor = 'grey'
-    playGame(playerOne, playerTwo)
+    playGameVsCPU(playerOne)
     startGame.remove()
     status.innerHTML = 'Playing!'
 })
@@ -112,19 +184,19 @@ restartGame.addEventListener('click', function(){
     location.reload()
 })
 
-
+let isThereAWin = false;
 
 function checkWinner (posOne, posTwo, posThree, choice){
     if(gameboard[posOne].innerHTML == gameboard[posTwo].innerHTML &&
         gameboard[posOne].innerHTML == gameboard[posThree].innerHTML &&
         gameboard[posThree].innerHTML  == choice){
-            flagWon = 0
             gameboard[posOne].style.backgroundColor = 'orange'
             gameboard[posTwo].style.backgroundColor = 'orange'
             gameboard[posThree].style.backgroundColor = 'orange'
             status.innerHTML = '"'+ choice +'"' + ' won!'
+            isThereAWin = true
             container.appendChild(restartGame)
-        } else if (flagWon == 9) {
+        } else if (flagWon == 9 || flagWonCPU == 5) {
             status.innerHTML = 'Draw!'
             container.appendChild(restartGame)
         }

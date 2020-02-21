@@ -6,8 +6,8 @@ const playerFactory = (name, choice) => {
 }
 
 
-const playerOne = playerFactory('paulo', 'O');
-const playerTwo = playerFactory('oluap', 'X');
+const playerOne = playerFactory('paulo', 'X');
+const playerTwo = playerFactory('oluap', 'O');
 
 
 
