@@ -53,6 +53,7 @@ function playGame(player1, player2){
                 choice = player1.choice
                 flagWon++
             }
+
             if (lastPlay == '' || lastPlay == player1.choice){
                 choice = player2.choice
                 flagWon++
@@ -104,7 +105,7 @@ function playGameVsCPU (player1){
             if (gameboard[m].innerHTML == ''){
                 setPyrMark(m);
                 lastPlay = player1.choice
-            } 
+            
       
             if (flagWonCPU < 5 && status.innerHTML == 'Playing!' && lastPlay == player1.choice){
                 setTimeout(function(){
@@ -119,8 +120,8 @@ function playGameVsCPU (player1){
                     checkWinner (1, 4, 7, 'O')
                     checkWinner (2, 5, 8, 'O')
                 
-                }, 400);
-            } 
+                }, 350);
+            } }
             console.log(flagWonCPU)
             if (status.innerHTML == '"X" won!' || 
                 status.innerHTML == '"O" won!' || status.innerHTML == 'Draw!') {
@@ -166,16 +167,20 @@ players.appendChild(vsPlyr)
 vsPlyr.addEventListener('click', function(){
     vsPlyr.style.backgroundColor = 'grey'
     vsPlyr.style.borderColor = 'grey'
+    vsPlyr.style.marginLeft = '85px'
     playGame(playerOne, playerTwo)
     startGame.remove()
+    players.removeChild(vsCPU)
     status.innerHTML = 'Playing!'
 })
 
 vsCPU.addEventListener('click', function(){
     vsCPU.style.backgroundColor = 'grey'
     vsCPU.style.borderColor = 'grey'
+    vsCPU.style.marginLeft = '85px'
     playGameVsCPU(playerOne)
     startGame.remove()
+    players.removeChild(vsPlyr)
     status.innerHTML = 'Playing!'
 })
 
@@ -200,7 +205,7 @@ function checkWinner (posOne, posTwo, posThree, choice){
             status.innerHTML = '"'+ choice +'"' + ' won!'
             isThereAWin = true
             container.appendChild(restartGame)
-        } else if (flagWon == 9 || flagWonCPU == 5) {
+        } else if (flagWon == 9) {
             status.innerHTML = 'Draw!'
             container.appendChild(restartGame)
         }
